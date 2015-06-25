@@ -5,4 +5,5 @@
             :url "http://www.eclipse.org/legal/epl-v10.html"}
   :dependencies [[org.clojure/clojure "1.6.0"]
                  [clj-tagsoup "0.3.0"]
-                 [hiccup "1.0.5"]])
+                 [hiccup "1.0.5"]
+                 [joda-time/joda-time "2.6"]])

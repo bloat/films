@@ -1,6 +1,8 @@
 (ns films.core
   (require [pl.danieljanus.tagsoup :as ts]
-           [hiccup.page :as hp]))
+           [hiccup.page :as hp])
+  (import [org.joda.time DateTime]
+          [org.joda.time.format DateTimeFormat]))
 
 (defn find-body [html]
   (some #(when (vector? %)
@@ -44,6 +46,7 @@
   (mapcat #(map (juxt get-title get-info) (find-films (find-body (ts/parse %)))) urls))
 
 (defn all-films-html [films]
-  (hp/html5 [:head] [:body [:table {:border "2"} (for [[title desc] films] [:tr [:td title] [:td desc]])]]))
+  (hp/html5 [:head] [:body [:p (str (.print (DateTimeFormat/forPattern "EEEE dd MMMM") (DateTime.)))] [:table {:border "2"} (for [[title desc] films] [:tr [:td title] [:td desc]])]]))
+
 (defn -main []
-(spit "/Users/bloat/films.html" (all-films-html (all-films))))
+  (spit "/usr/share/nginx/html/films.html" (all-films-html (all-films))))
